@@ -54,23 +54,6 @@ export default {
     return {
       searchInput: '',
       searchResult: [
-        // {
-        //   'id': 1,
-        //   'title': 'Naruto',
-        //   'img': 'https://avt.mkklcdnv6temp.com/42/a/13-1583489306.jpg',
-        //   'url': '',
-        //   'views': 43326,
-        //   'ratings': 4.5
-        // },
-        // {
-        //   'id': 2,
-        //   'title': 'Naruto',
-        //   'img': 'https://avt.mkklcdnv6temp.com/42/a/13-1583489306.jpg',
-        //   'url': '',
-        //   'authors': 'Mashashipoyamoto',
-        //   'views': 43326,
-        //   'ratings': 4.5
-        // }
       ]
     }
   },

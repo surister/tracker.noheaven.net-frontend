@@ -21,12 +21,9 @@
           <div class="column is-narrow">
             <b-button
                 icon-left="plus" outlined>
-
             </b-button>
           </div>
-
         </div>
-
       </div>
     </div>
   </section>
