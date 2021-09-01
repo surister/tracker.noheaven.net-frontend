@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="isModalActive" scroll="keep">
+  <b-modal v-model="isModalActiveInput" scroll="keep">
       <div class="modal-content">
         <div class="container">
           <div class="card p-5">
@@ -22,7 +22,7 @@
                     </div>
                   </div>
                   <div class="column">
-                    <p class="is-4">Searching: Naruto</p>
+                    <p class="is-4">Searching: {{ searchInputLabel }}</p>
                   </div>
                 </div>
                 <div class="columns" >
@@ -53,8 +53,21 @@ export default {
   data() {
     return {
       searchInput: '',
+      searchInputLabel: '',
       searchResult: [
       ]
+    }
+  },
+  computed: {
+    isModalActiveInput : {
+      get: function () {
+        return this.isModalActive
+      },
+
+      set: function (newValue) {
+        this.$emit('update:isModalActive', newValue)
+
+      }
     }
   },
   methods: {
@@ -62,8 +75,11 @@ export default {
       this.loadingComponent = this.$buefy.loading.open({})
 
     },
+
+
     searchAnime() {
       this.open()
+      this.searchInputLabel = this.searchInput
       axios.get(
           'http://127.0.0.1:8000/manganelo/' + '?search=' + this.searchInput
       )

@@ -125,7 +125,7 @@
         </section>
       </div>
     </div>
-    <anime-add-modal :is-modal-active="isModalActive"></anime-add-modal>
+    <anime-add-modal :is-modal-active.sync="isModalActive"></anime-add-modal>
   </div>
 
 </template>
