@@ -18,7 +18,6 @@
             <p>
               <b-skeleton height="60px"></b-skeleton>
               <b-skeleton active></b-skeleton>
-
             </p>
           </template>
           <template v-else>
@@ -44,7 +43,6 @@
                 <b-skeleton size="is-large" width="44px" height="44px"></b-skeleton>
               </div>
             </div>
-
           </template>
 
           <template v-else>
@@ -64,20 +62,19 @@
         </div>
         <div class="media">
           <div class="media-left">
+
             <template v-if="loading">
               <b-skeleton width="161px" height="27px"></b-skeleton>
             </template>
-            <template v-else>
 
+            <template v-else>
                  <span class="tag is-success">
                    Last updated: {{ new Date(data.added).toLocaleDateString() }}
                 </span>
-
             </template>
+
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
