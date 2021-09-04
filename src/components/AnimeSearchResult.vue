@@ -14,7 +14,7 @@
             <span class="subtitle is-6">Author/s: {{ data.authors }}</span><br>
             <span class="subtitle is-6">Vistas: {{ data.views }}</span><br>
             <span class="subtitle is-6">Chapters: {{ data.chapters_length }}</span><br>
-            <span class="subtitle is-6">Last updated: {{ new Date(data.added).toLocaleDateString() }}</span><br>
+            <span class="subtitle is-6">Last updated: {{ data.added }}</span><br>
             <br>
             <b-rate maxs="5" v-model="data.ratings" :disabled="true" :show-score="true">67</b-rate>
           </div>
@@ -45,17 +45,33 @@
 <script>
 import axios from "axios";
 import snackbars from "../snackbars";
+
 export default {
   name: 'AnimeSearchResult',
   props: ['data'],
   data: function () {
     return {}
   },
+  mounted() {
+    console.log(this.data)
+  },
   methods: {
     addAnime() {
+      console.log(this.data)
+
       axios.post(
           process.env.VUE_APP_BASE_URL + 'core/add-anime/',
-          {'id': 6, 'title': this.data.title, 'source': 2}
+          {
+            'title': this.data.title,
+            'chapter_count': this.data.chapter_count,
+            'authors': this.data.authors,
+            'image': this.data.img,
+            'url': this.data.url,
+            'ratings': this.data.ratings,
+            'last_updated': this.data.updated,
+            'views': this.data.views,
+            'type': 1,
+          }
       ).then(result => {
         if (result.status === 200) {
           this.data.user_has_it = true

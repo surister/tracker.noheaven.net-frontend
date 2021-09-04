@@ -8,7 +8,7 @@
               <b-skeleton width="128px" height="182px"></b-skeleton>
             </template>
             <template v-else>
-              <img :src=data.img alt="Placeholder image">
+              <img :src=data.anime_data.image alt="Placeholder image">
             </template>
 
           </figure>
@@ -21,8 +21,9 @@
             </p>
           </template>
           <template v-else>
-            <p class="title is-4">{{ data.title }}</p>
-            <p class="subtitle is-6">Capitulo actual: <a></a>{{ data.current_chapter }}</p>
+            <p class="title is-4">{{ data.anime_data.title }}</p>
+            <p class="subtitle is-6">Capitulo actual: <a></a>{{ data.anime_profile.current_chapter }} /
+              {{ data.anime_data.chapter_count }}</p>
           </template>
         </div>
       </div>
@@ -69,7 +70,7 @@
 
             <template v-else>
                  <span class="tag is-success">
-                   Last updated: {{ new Date(data.added).toLocaleDateString() }}
+                   Last updated: {{ new Date(data.anime_data.last_updated).toLocaleDateString() }}
                 </span>
             </template>
 
@@ -85,6 +86,9 @@ export default {
   name: 'AnimeCard',
   data: function () {
     return {}
+  },
+  mounted() {
+
   },
   props: ['data', 'loading']
 }

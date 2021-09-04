@@ -73,7 +73,6 @@ export default {
   methods: {
     open() {
       this.loadingComponent = this.$buefy.loading.open({})
-
     },
 
 

@@ -25,14 +25,14 @@
 
     <b-table
         checkable
-        :data="animes"
+        :data="data"
         ref="table"
         paginated
         :per-page="perPage"
         detailed
         detail-key="id"
         :debounce-search="1000"
-        :loading="isLoading"
+        :loading="loading"
         :detail-transition="transitionName"
         :show-detail-icon="false"
         :checked-rows.sync="checkedRows"
@@ -42,20 +42,20 @@
         aria-page-label="Page"
         aria-current-label="Current page">
 
-      <b-table-column field="title" label="Title" sortable v-slot="props" searchable>
+      <b-table-column field="anime_data.title" label="Title" sortable v-slot="props" searchable>
 
         <a @click="props.toggleDetails(props.row)">
-          {{ props.row.title }}
+          {{ props.row.anime_data.title }}
         </a>
       </b-table-column>
 
-      <b-table-column field="user.last_name" label="Capitulo actual" sortable v-slot="props">
-        {{ props.row.current_chapter }}
+      <b-table-column field="anime_data.current_chapter" label="Capitulo actual" sortable v-slot="props">
+        {{ props.row.anime_profile.current_chapter }} / {{ props.row.anime_data.chapter_count }}
       </b-table-column>
 
       <b-table-column field="date" label="Date" sortable centered v-slot="props">
                 <span class="tag is-success">
-                    {{ new Date(props.row.added).toLocaleDateString() }}
+                    {{ new Date(props.row.anime_data.last_updated).toLocaleDateString() }}
                 </span>
       </b-table-column>
 
@@ -79,10 +79,11 @@
       </b-table-column>
 
       <template #detail="props">
-        <article class="media">
+        <article class="media" :key="props.row.anime_data.title">
           <figure class="media-left">
-            <p class="image is-64x64">
-              <img :src="props.row.img" alt="">
+            <p class="image">
+              <!--              FIXME  image length-->
+              <img :src="props.row.anime_data.image" alt="" height="49px" width="49px">
             </p>
           </figure>
           <div class="media-content">
@@ -103,11 +104,20 @@
     </b-table>
 
   </section>
+
 </template>
 
 <script>
 export default {
   name: "animeTable",
+  props: [
+    'data',
+    'loading',
+  ],
+  mounted() {
+    console.log(this.data)
+  },
+
   data: function () {
     return {
       checkedRows: [],
@@ -116,10 +126,8 @@ export default {
       useTransition: true,
       transitionName: "fade",
       perPage: 15,
+
     }
   },
-  computed: {
-
-  }
 }
 </script>
