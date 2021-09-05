@@ -114,9 +114,6 @@ export default {
     'data',
     'loading',
   ],
-  mounted() {
-    console.log(this.data)
-  },
 
   data: function () {
     return {
@@ -125,7 +122,7 @@ export default {
       showDetailIcon: true,
       useTransition: true,
       transitionName: "fade",
-      perPage: 15,
+      perPage: 10,
 
     }
   },

@@ -52,33 +52,48 @@ export default {
   data: function () {
     return {}
   },
-  mounted() {
-    console.log(this.data)
-  },
+
   methods: {
     addAnime() {
-      console.log(this.data)
+      let data = {
+        'title': this.data.title,
+        'chapter_count': this.data.chapter_count,
+        'authors': this.data.authors,
+        'image': this.data.img,
+        'url': this.data.url,
+        'ratings': this.data.ratings,
+        'last_updated': this.data.updated,
+        'views': this.data.views,
+        'type': 1,
+      }
 
+      let animeData = {
+        'id': Math.random() * 1000000,
+        'anime_data': {
+          'title': this.data.title,
+          'authors': this.data.authors,
+          'chapter_count': this.data.chapter_count,
+          'image': this.data.img,
+          'views': this.data.views,
+
+        },
+        'anime_profile': {
+          'current_chapter': 1,
+          'last_time_read': new Date().toISOString().split('T')[0]
+        },
+
+      }
       axios.post(
           process.env.VUE_APP_BASE_URL + 'core/add-anime/',
-          {
-            'title': this.data.title,
-            'chapter_count': this.data.chapter_count,
-            'authors': this.data.authors,
-            'image': this.data.img,
-            'url': this.data.url,
-            'ratings': this.data.ratings,
-            'last_updated': this.data.updated,
-            'views': this.data.views,
-            'type': 1,
-          }
+          data
       ).then(result => {
         if (result.status === 200) {
           this.data.user_has_it = true
+          this.$store.commit('add_anime_data', animeData)
           snackbars.successAddAnime()
         }
+        // eslint-disable-next-line no-unused-vars
       }).catch(error => {
-        console.log(error)
         snackbars.errorWarning()
       })
 

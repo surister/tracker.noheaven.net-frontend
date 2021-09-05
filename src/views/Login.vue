@@ -60,7 +60,6 @@
   </section>
 </template>
 <script>
-import axios from "axios";
 
 export default {
   name: 'login',
@@ -75,6 +74,7 @@ export default {
       hasErrorEmptyFields: false,
     }
   },
+
   computed: {
     errorMessage: function () {
       if (this.hasErrorShortPassword) {
@@ -90,9 +90,9 @@ export default {
       return ''
     }
   },
+
   methods: {
     _toggleLoginLoadingAnimation(eventTarget) {
-      console.log('Toggling animation')
       eventTarget.closest('button').classList.toggle('button--loading')
     },
     _removeErrors() {
@@ -113,6 +113,7 @@ export default {
       }
 
     },
+
     async login() {
       let validationError = false
 
@@ -131,26 +132,19 @@ export default {
         return
       }
 
-
       // Sleep to simulate backend delay for the loading animation.
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise(r => setTimeout(r, 1000))
 
+      const username = this.username
+      const password = this.password
 
-      axios.post(process.env.VUE_APP_BASE_URL + 'auth/login/',
-          {
-            'username': this.username,
-            'password': this.password
-            // eslint-disable-next-line no-unused-vars
-          }).then(response => {
-            console.log('response')
-            this.$router.push('/')
-        // eslint-disable-next-line no-unused-vars
-      }).catch(error => {
-
-        console.log(error)
-        this.hasError = this.hasErrorWrongLogin = true
-
-      })
+      this.$store.dispatch(
+          'login', {username, password}
+      )
+          // eslint-disable-next-line no-unused-vars
+          .catch(response => {
+            this.hasError = this.hasErrorWrongLogin = true
+          })
 
       // Once the whole login is done, we stop the animation.
       this._toggleLoginLoadingAnimation(eventTarget)
